@@ -1,0 +1,47 @@
+# Data configuration
+data:
+  path: '../data'
+  batch_size: 2
+  num_workers: 8
+  tooth_npoints: 512
+  max_missing_teeth: 6
+
+# Training configuration
+training:
+  epochs: 1000
+  log_every_n_steps: 5
+
+# Model configuration
+model:
+  output_dim: 5
+  dropout: 0.3
+
+# Optimizer configuration
+optimizer:
+  lr: 3e-4
+  end_lr: 3e-6
+  beta1: 0.5
+  decay: 0.0
+
+# Random seed
+seed: 1234
+
+# Checkpoint configuration
+checkpoint:
+  monitor: 'val_loss'
+  filename: '{epoch:02d}-{val_loss:.5f}'
+  save_top_k: 7
+  mode: 'min'
+  save_last: true
+  resume_from: '' 
+
+# Trainer configuration
+trainer:
+  accelerator: 'gpu'
+  devices: '0,1'    
+  strategy: 'ddp_find_unused_parameters_true'
+
+inference:
+  datapath: '../data'
+  model_ckpt: ''
+  save_dir: './inference_results'

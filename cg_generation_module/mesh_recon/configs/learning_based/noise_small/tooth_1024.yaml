@@ -1,0 +1,39 @@
+data:
+  class: null
+  dataset: Tooth
+  data_type: psr_full
+  input_type: pointcloud
+  path: null
+  num_gt_points: 3000
+  num_offset: 7
+  pointcloud_n: 1000
+  pointcloud_noise: 0.005
+model:
+  grid_res: 128 # poisson grid resolution
+  psr_sigma: 2
+  psr_tanh: True
+  normal_normalize: False
+  predict_normal: True
+  predict_offset: True
+  c_dim: 32
+  s_offset: 0.001
+  encoder: local_pool_pointnet
+  encoder_kwargs:
+    hidden_dim: 32
+    plane_type: 'grid'
+    grid_resolution: 32
+    unet3d: True
+    unet3d_kwargs:
+      num_levels: 3
+      f_maps: 32
+      in_channels: 32
+      out_channels: 32
+  decoder: simple_local
+  decoder_kwargs:
+    sample_mode: bilinear # bilinear / nearest
+    hidden_size: 32
+generation:
+  exp_gt: True
+  exp_input: True
+  psr_resolution: 128
+  psr_sigma: 2

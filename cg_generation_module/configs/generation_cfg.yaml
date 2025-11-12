@@ -1,0 +1,73 @@
+# Dataset configuration
+dataset:
+  path: '../data'
+  tooth_npoints: 1024
+  norm_mode: 'fixed'
+  max_missing_teeth: 6
+  boundary_size_scale: 1.0
+
+# Data loader parameters
+data_loader:
+  batch_size: 16  
+  num_workers: 16  
+  pin_memory: false
+  persistent_workers: true
+
+# Training parameters
+training:
+  niter: 2400  # number of epochs               
+  lr: 2e-5  # learning rate
+  beta1: 0.5  # Adam beta1
+  decay: 0  # weight decay
+  lr_decay_factor: 0.45
+  manual_seed: 1234
+
+# Model architecture
+model:
+  nc: 3  # dimension of one point (usually 3 for x, y, z)
+  extra_feature_nc: 9
+  attention: true
+  dropout: 0.1
+  embed_dim: 128
+  width_mult: 1.0
+  vox_res_mult: 1.0
+
+# Diffusion process parameters
+diffusion:
+  beta_start: 0.0001
+  beta_end: 0.02
+  schedule_type: 'linear' 
+  time_num: 1000  # number of timesteps T in diffusion process
+  loss_type: 'mse'
+  model_mean_type: 'eps'
+  model_var_type: 'fixedsmall'
+
+# Evaluation and logging
+evaluation:
+  save_iter: 100  # unit: epoch
+  viz_iter: 100  # unit: epoch
+  diag_freq: 10  # unit: iteration
+
+
+# Model checkpoint
+checkpoint:
+  model_ckpt: ''  # path to model (to continue training)
+
+# DDP / Distributed training configuration
+ddp:
+  backend: 'nccl'
+  addr: 'localhost'
+  port: '9991'
+  # Note: num_workers and pin_memory are in data_loader section above
+  # Note: world_size and ngpus_per_node are determined automatically from available GPUs
+
+
+inference:
+  datapath: '../data'
+  model_ckpt: '' 
+  save_dir: './inference_results'
+  mesh_recon:
+    proceed_mesh_recon: true
+    sap_model_ckpt: '' 
+    sap_default_cfg: './mesh_recon/configs/default.yaml'
+    sap_tooth_cfg: './mesh_recon/configs/learning_based/noise_small/tooth_1024.yaml'

@@ -1,0 +1,18 @@
+{
+    "train":{
+        "DATA0001":null,
+        "DATA0002":null,
+        "DATA0003":null,
+        "DATA0004":null
+        },
+
+    "val":{
+        "DATA0005":null,
+        "DATA0006":null
+    },
+
+    "test":{
+        "DATA0007":[[11,12],[45,46,47]],
+        "DATA0008":[[33],[15,13,11,45,26,27]]
+    }
+}
